@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Ubuntu科学上网最终解决方案</title>
+    <url>/2020/03/14/Ubuntu%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%9C%80%E7%BB%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<h4 id="尝试改变系统网络设置，但最终还是不行，所以，最终方案就是"><a href="#尝试改变系统网络设置，但最终还是不行，所以，最终方案就是" class="headerlink" title="尝试改变系统网络设置，但最终还是不行，所以，最终方案就是"></a>尝试改变系统网络设置，但最终还是不行，所以，最终方案就是</h4><hr>
+<p>重新安装Ubuntu系统之后，重新安装electron-ssr，之后就可以了。</p>
+<p><a href="https://www.cnblogs.com/masbay/p/10745170.html" target="_blank">双系统安装教程</a></p>
+<p><a href="https://blog.csdn.net/qq_15192373/article/details/81536602" target="_blank">双系统完全删除Ubuntu教程</a></p>
+]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>学习c++的一些笔记</title>
     <url>/2020/03/05/%E5%AD%A6%E4%B9%A0cpp%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><ul>
@@ -116,10 +128,151 @@
 </li>
 </ul>
 <h3 id="第四章-表达式"><a href="#第四章-表达式" class="headerlink" title="第四章 表达式"></a>第四章 表达式</h3><ul>
-<li>左值和右值<ul>
+<li><p>左值和右值</p>
+<ul>
 <li>当一个对象被用作<strong>右值</strong>的时候，用的是对象的值（内容）；当对象被用作<strong>左值</strong>的时候，用的是对象的身份（在内存中的位置）。</li>
 <li>在需要右值的地方可以用左值来代替，但是不能把右值当成左值（也就是位置）来使用。</li>
 </ul>
+</li>
+<li><p>短路求值</p>
+<ul>
+<li>对于&amp;&amp;，当且仅当左侧运算对象为真时才对右侧运算对象求值。</li>
+<li>对于||，当且仅当左侧运算对象为假时才对右侧运算对象求值。</li>
+</ul>
+</li>
+<li><p>若某个运算对象的类型是无符号类型，那么转换的结果就要依赖于机器中各个整数类型的相对大小。</p>
+</li>
+<li><p>命名的强制类型转换 <em>尽量避免</em></p>
+<ul>
+<li>static_cast</li>
+</ul>
+</li>
+<li><p>任何具有明确定义的不包含底层const的类型转换</p>
+</li>
+<li><p>const_cast</p>
+<ul>
+<li><p>只能改变运算对象的底层const，称为“<strong>去掉const性质</strong>”，但是，<strong>对声明为const的变量来说，常量就是常量，无论怎么转化，常量的值就是不会变。</strong></p>
+</li>
+<li><p>const_cast的用法：</p>
+<ul>
+<li><p>若有一个函数，它的形参是non_const类型变量，而且函数不会对实参的值进行改动。这是我们可以使用类型为const的变量来调用函数，此时const_cast就派上用场了。</p>
+  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InputInt</span><span class="params">(<span class="keyword">int</span> * num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;*num&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> constant = <span class="number">21</span>;</span><br><span class="line">    <span class="comment">//InputInt(constant); //error C2664: “InputInt”: 不能将参数 1 从“const int”转换为“int *”</span></span><br><span class="line">    InputInt(<span class="keyword">const_cast</span>&lt;<span class="keyword">int</span>*&gt;(&amp;constant));</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果我们定义了一个非const的变量，却使用了一个指向const值的指针来指向它，const_cast就可以派上用场。</p>
+  <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> constant = <span class="number">26</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span>* const_p = &amp;constant;</span><br><span class="line">    <span class="keyword">int</span>* modifier = <span class="keyword">const_cast</span>&lt;<span class="keyword">int</span>*&gt;(const_p);</span><br><span class="line">    *modifier = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt; <span class="string">"constant:  "</span>&lt;&lt;constant&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"*modifier:  "</span>&lt;&lt;*modifier&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>const_cast不是为了改变const变量的值而设计的，在函数参数的传递上const_cast的作用上const_cast的作用才显现出来。</strong></p>
+</li>
+</ul>
+</li>
+<li><p>reinterpret_cast  <strong>依赖于机器</strong></p>
+<ul>
+<li>通常为运算对象的位模式提供较低层次上的重新解释。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="第五章-语句"><a href="#第五章-语句" class="headerlink" title="第五章 语句"></a>第五章 语句</h3><p><strong><em>语句有限</em></strong></p>
+<hr>
+<ul>
+<li>while、for和do while语句，执行迭代操作。</li>
+<li>if和switch语句，提供条件分支结构。</li>
+<li>continue语句，终止循环的当前一次迭代。</li>
+<li>break语句，退出循环或者switch语句。</li>
+<li>goto语句，将控制权转移到一条带标签的语句。<strong>一般不用</strong></li>
+<li>try和catch，将一段可能发生异常的语句序列在花括号里构成try语句块，catch子句负责处理代码抛出的异常。<strong>一个抛一个接</strong></li>
+<li>throw表达式语句，存在于代码块中，将控制权转移到相关的catch子句中。</li>
+<li>return语句，终止函数的执行。</li>
+</ul>
+<h3 id="第六章-函数"><a href="#第六章-函数" class="headerlink" title="第六章 函数"></a>第六章 函数</h3><ul>
+<li><p>使用引用类型的形参替代指针，若函数无需改变引用形参的值，最好将其声明为常量引用。</p>
+</li>
+<li><p>C++允许定义若干具有相同名字的函数，不过前提是不同函数的形参列表应该有明显的区别</p>
+</li>
+<li><p>编写能处理不同数量实参的函数，C++11提供了两个主要的方法：</p>
+<ul>
+<li><p>若所有的实参类型相同，可以传递一个名为initializer_list的标准库类型。</p>
+</li>
+<li><p>若实参类型不同，可以编写一种特殊的函数，也就是所谓的可变参数模板。<strong>16章</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>返回数组指针</p>
+<ul>
+<li>使用decltype</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> odd[] = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;;</span><br><span class="line"><span class="keyword">decltype</span>(odd) *arrPtr(<span class="keyword">int</span> i);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>位置返回类型</li>
+</ul>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">auto func(int i) -&gt; int(*)[10]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数重载和const形参</p>
+<ul>
+<li><p>顶层const不影响传入函数的对象。<em>一个拥有四年高层xonst的形参无法和另一个没有顶层const的形参区分开。</em></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">Record <span class="title">lookup</span><span class="params">(Phone)</span></span>;</span><br><span class="line"><span class="function">Record <span class="title">lookup</span><span class="params">(<span class="keyword">const</span> Phone)</span></span>;<span class="comment">//重复声明了Record lookup(Phone)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>内联函数<strong>inline</strong></p>
+<ul>
+<li>将函数再每个调用点上“内联地”展开。</li>
+<li>内敛说明只是向编译器发出的一个请求，编译器可以选择忽略这个请求。</li>
+</ul>
+</li>
+<li><p>constexpr函数 <em>用于常量表达式</em></p>
+<ul>
+<li>函数的返回类型及所有形参的类型都得是字面值类型</li>
+<li>函数体中有且只有一条return语句。也可以包含其他语句，只要这些语句在运行时不执行任何操作。</li>
+</ul>
+</li>
+</ul>
+<h3 id="第七章-类"><a href="#第七章-类" class="headerlink" title="第七章 类"></a>第七章 类</h3><ul>
+<li><p>隐形this指针</p>
+</li>
+<li><p>常量成员函数</p>
+</li>
+<li><p>构造函数</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Sales_data() = <span class="keyword">default</span>;</span><br><span class="line">Sales_data(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;s) : bookNo(s)&#123;&#125;</span><br><span class="line">Sales_data(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;s, <span class="keyword">unsigned</span> n, <span class="keyword">double</span> p) : bookNo(s), units_sold(n), revenue(p*n) &#123;&#125;</span><br><span class="line">Sales_data(<span class="built_in">std</span>::istream &amp;);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>使用class和struct定义类唯一的区别就是默认的访问权限。</p>
+<ul>
+<li>如果希望定义的类的所有成员是public的时候使用struct。</li>
+<li>如果希望成员是private的时候，使用class。</li>
+</ul>
+</li>
+<li><p><strong>友元</strong>可以使其他类或函数访问该类的非公有成员，<em>使用不慎就有可能破坏类的封装性。</em></p>
+<ul>
+<li>友元声明只能出现在类定义的内部，一般最好在类定义开始或结束前的位置集中声明友元。</li>
+<li>友元不是类的成员也不受它所在区域访问控制级别的约束。</li>
+</ul>
+</li>
+<li><p>封装的益处：</p>
+<ul>
+<li>确保用户代码不会无意间破坏封装对象的状态。</li>
+<li>被封装的类的具体实现细节可以随时改变，而无需调整用户级别的代码。</li>
+</ul>
+</li>
+<li><p>析构函数</p>
+<ul>
+<li>当一个对象生命周期结束时，其所占有的内存空间就要被回收，这个工作就由析构函数来完成。</li>
+<li><strong>析构函数是“反向”的构造函数，析构函数不允许有返回值，更重要的是析构函数不允许带参数，并且一个类中只能由一个析构函数。</strong></li>
+<li>析构函数的作用正好与构造函数相反，对象超出其作用范围，对应的内存空间被系统收回或被程序delete删除时，析构函数被调用。</li>
+<li>根据析构函数的这种特点，我们可以在构造函数中初始化对象的某些成员变量，给其分配内存空间（堆内存），在析构函数中释放对象运行期间所申请的资源。</li>
+</ul>
+</li>
+<li><p>可变数据类型<strong>mutable data member</strong></p>
+</li>
+<li><p>一个const成员函数如果以引用的形式返回*this，那么它的返回类型将是常量引用。</p>
 </li>
 </ul>
 ]]></content>
