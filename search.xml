@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>鸟叔基础篇笔记</title>
+    <url>/2020/03/20/%E9%B8%9F%E5%8F%94%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<ul>
+<li>man page中DATE（num）num对应的内容：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代号</th>
+<th>代表内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1</strong></td>
+<td><strong>使用者在shell环境中可以操作的指令或可执行文件</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>系统核心可调用的函数与工具等</td>
+</tr>
+<tr>
+<td>3</td>
+<td>一些常用的函数与函数库，大部分为C的函数库</td>
+</tr>
+<tr>
+<td>4</td>
+<td>设备文件的说明，通常在/dev下的文件</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>配置文件或者是某些文件的格式</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>游戏</td>
+</tr>
+<tr>
+<td>7</td>
+<td>惯例与协定等，例如Linux文件系统、网络协定、ASCII code等等的说明</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td><strong>系统管理员可用的管理指令</strong></td>
+</tr>
+<tr>
+<td>9</td>
+<td>跟kernel有关的文件</td>
+</tr>
+</tbody></table>
+<ul>
+<li>三大工具：<ul>
+<li>man</li>
+<li>info</li>
+<li>/usr/share/doc/</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu科学上网最终解决方案</title>
     <url>/2020/03/14/Ubuntu%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%9C%80%E7%BB%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
     <content><![CDATA[<h4 id="尝试改变系统网络设置，但最终还是不行，所以，最终方案就是"><a href="#尝试改变系统网络设置，但最终还是不行，所以，最终方案就是" class="headerlink" title="尝试改变系统网络设置，但最终还是不行，所以，最终方案就是"></a>尝试改变系统网络设置，但最终还是不行，所以，最终方案就是</h4><a id="more"></a>
@@ -235,6 +298,9 @@
 </ul>
 <h3 id="第七章-类"><a href="#第七章-类" class="headerlink" title="第七章 类"></a>第七章 类</h3><ul>
 <li><p>隐形this指针</p>
+<ul>
+<li>静态成员函数不能使用this指针，因为静态成员函数并不具体作用于某个对象–&gt;静态成员函数的真实的参数的个数，就是程序中写出的参数个数。</li>
+</ul>
 </li>
 <li><p>常量成员函数</p>
 </li>
@@ -264,17 +330,68 @@
 <li>被封装的类的具体实现细节可以随时改变，而无需调整用户级别的代码。</li>
 </ul>
 </li>
-<li><p>析构函数</p>
+<li><p>析构函数（先初始化的后析构</p>
 <ul>
+<li>名字与类名相同，在前面加’~’。</li>
 <li>当一个对象生命周期结束时，其所占有的内存空间就要被回收，这个工作就由析构函数来完成。</li>
 <li><strong>析构函数是“反向”的构造函数，析构函数不允许有返回值，更重要的是析构函数不允许带参数，并且一个类中只能由一个析构函数。</strong></li>
-<li>析构函数的作用正好与构造函数相反，对象超出其作用范围，对应的内存空间被系统收回或被程序delete删除时，析构函数被调用。</li>
+</ul>
+</li>
+<li><p>析构函数的作用正好与构造函数相反，对象超出其作用范围，对应的内存空间被系统收回或被程序delete删除时，析构函数被调用。</p>
+<ul>
 <li>根据析构函数的这种特点，我们可以在构造函数中初始化对象的某些成员变量，给其分配内存空间（堆内存），在析构函数中释放对象运行期间所申请的资源。</li>
+<li>delete运算导致析构函数调用，new出来的东西一定要用delete才会消亡。</li>
 </ul>
 </li>
 <li><p>可变数据类型<strong>mutable data member</strong></p>
 </li>
 <li><p>一个const成员函数如果以引用的形式返回*this，那么它的返回类型将是常量引用。</p>
+</li>
+<li><p>复制构造函数起作用的三种情况：</p>
+<ul>
+<li><p>当用一个对象去初始化同类的另一个对象时。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">Complex <span class="title">c2</span><span class="params">(c1)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果有某函数有一个参数是类A的对象，那么该函数被调用时，类A的复制构造函数将被调用。</p>
+</li>
+<li><p>如果函数的返回值是类A的对象时，则函数返回时，A的复制构造函数被调用。</p>
+</li>
+</ul>
+</li>
+<li><p>常量引用参数的使用</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(CMyclass obj_)</span></span>&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"fun"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这样的函数调用时生成形参会引发复制构造函数调用，开销较大，所以可以考虑使用CMyclass&amp;引用类型作为参数。</p>
+</li>
+<li><p>如果希望确保实参的值在函数中不应被改变，那么可以加上const关键字：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">(<span class="keyword">const</span> CMyclass &amp; obj)</span></span>&#123;</span><br><span class="line">	<span class="comment">//函数中任何试图改变obj值的语句都将是非法的。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>类型转换构造函数（实现类型的自动转换</p>
+</li>
+<li><p>静态成员（不需要通过对象就能访问</p>
+<p><strong><em>设置静态成员的机制的目的是将和某些类紧密相关的全局变量和函数写到类里面，看上去像一个整体，易于维护和理解。</em></strong></p>
+<ul>
+<li>静态成员变量<ul>
+<li>一共只有一份，<strong>为所有对象共享。</strong></li>
+<li>sizeof不会计算静态成员变量。</li>
+<li>本质上是全局变量，哪怕一个对象也不存在，静态成员变量也存在</li>
+</ul>
+</li>
+<li>静态成员函数<ul>
+<li><strong>并不具体作用于某个对象。</strong></li>
+<li>本质上是全局函数。</li>
+<li><strong>在静态成员函数中，不能访问非静态成员变量，也不能调用非静态成员函数。</strong> </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>任何生成封闭类对象的语句，都要让编译器明白，对象中的成员对象，是如何初始化的。</strong></p>
+<ul>
+<li>具体的做法就是：<strong>通过封闭类的构造函数的初始化列表。</strong></li>
+</ul>
 </li>
 </ul>
 ]]></content>
