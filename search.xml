@@ -1,8 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>字符串驻留</title>
+    <url>/2020/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%A9%BB%E7%95%99/</url>
+    <content><![CDATA[<h3 id="字符串驻留"><a href="#字符串驻留" class="headerlink" title="字符串驻留"></a>字符串驻留</h3><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><ul>
+<li>字符串驻留是一种仅保存一份相同且不可变字符串的方法</li>
+</ul>
+<blockquote>
+<p>基本原理：</p>
+<p>系统维护intered字典，记录已被驻留的字符串对象。</p>
+<p>当字符串对象a需要驻留时，现在interned检测是否存在，若存在则指向存在的字符串对象，a的引用计数减1；</p>
+<p>若不存在，则记录a到interned中。</p>
+</blockquote>
+<h5 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h5><ul>
+<li>节省大量内存</li>
+<li>字符串比较时，非驻留比较效率o(n),驻留时比较效率o(1)。</li>
+</ul>
+<h5 id="驻留情况"><a href="#驻留情况" class="headerlink" title="驻留情况"></a>驻留情况</h5><ul>
+<li><p>字符串只在编译时进行驻留，而非运行时。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="string">"hello"</span> + <span class="string">"world"</span></span><br><span class="line">print(<span class="string">"compile:"</span>,a <span class="keyword">is</span> <span class="string">"helloworld"</span>)</span><br><span class="line"></span><br><span class="line">a= <span class="string">"hello"</span></span><br><span class="line">b = <span class="string">"world"</span></span><br><span class="line">print(<span class="string">"run:"</span>,a+b <span class="keyword">is</span> <span class="string">"helloworld"</span>)</span><br><span class="line"><span class="comment">#compile : True</span></span><br><span class="line"><span class="comment">#run : False</span></span><br></pre></td></tr></table></figure>
+
+<p><em>‘wtf’将被驻留，但是’’.join([‘w’,’t’,’f’])不会被驻留</em></p>
+</li>
+<li><p>字符串长度为0和1时，默认都采用了驻留机制。</p>
+</li>
+<li><p>字符串&gt;1时，且只含大小写字母、数字、下划线时，才会默认驻留。</p>
+</li>
+<li><p>用乘法得到的字符串，有2种情况。</p>
+<ul>
+<li>乘数为1时，都是默认驻留。</li>
+<li>乘数&gt;=2时：<ul>
+<li>仅含大小写字母、数字、下划线，长度&lt;=20，默认驻留</li>
+<li>仅含大小写字母、数字、下划线，长度&gt;20，默认不驻留</li>
+<li>其他字符串时，与长度无关，不驻留。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>字符串被sys.intern()指定驻留。</p>
+</li>
+<li><p>[-5,256]之间的整数数字，Python默认驻留。</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python廖雪峰笔记</title>
-    <url>/2020/03/21/python%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/03/21/python%E5%BB%96%E9%9B%AA%E5%B3%B0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><ul>
 <li>list和tuple是python内置的有序集合，一个可变，一个不可变。<ul>
 <li>不可变的tuple使得代码更加安全，所以可能的话，能用tuple代替list就尽量用tuple。</li>
@@ -170,6 +217,16 @@
 </li>
 <li><p>__ call __         <em>任何类中定义后，就可以直接对实例进行调用</em></p>
 </li>
+</ul>
+</li>
+<li><p>Enum</p>
+<ul>
+<li>可以把一组相关常量定义在一个class中，且class不可变，而且成员可以直接比较。</li>
+<li>枚举类型不可实例化，不可更改。</li>
+<li>定义枚举时，成员名不允许重复。</li>
+<li>成员值允许相同，第二个成员的名称被视作第一个成员的别名。</li>
+<li>若要不能定义相同的成员值，可以通过unique装饰。</li>
+<li>IntEnum时Enum的拓展，不同类型的整数枚举可以相互比较。</li>
 </ul>
 </li>
 </ul>
