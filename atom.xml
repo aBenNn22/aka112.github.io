@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-21T16:02:43.837Z</updated>
+  <updated>2020-03-22T06:10:23.043Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,21 +17,23 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>字符串驻留</title>
-    <link href="http://yoursite.com/2020/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%A9%BB%E7%95%99/"/>
-    <id>http://yoursite.com/2020/03/21/%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%A9%BB%E7%95%99/</id>
-    <published>2020-03-21T14:27:44.000Z</published>
-    <updated>2020-03-21T16:02:43.837Z</updated>
+    <title>wtfpython day1</title>
+    <link href="http://yoursite.com/2020/03/22/wtfpython-day1/"/>
+    <id>http://yoursite.com/2020/03/22/wtfpython-day1/</id>
+    <published>2020-03-22T03:35:33.000Z</published>
+    <updated>2020-03-22T06:10:23.043Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h3 id=&quot;字符串驻留&quot;&gt;&lt;a href=&quot;#字符串驻留&quot; class=&quot;headerlink&quot; title=&quot;字符串驻留&quot;&gt;&lt;/a&gt;字符串驻留&lt;/h3&gt;&lt;h5 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h3 id=&quot;字符串驻留&quot;&gt;&lt;a href=&quot;#字符串驻留&quot; class=&quot;headerlink&quot; title=&quot;字符串驻留&quot;&gt;&lt;/a&gt;字符串驻留&lt;/h3&gt;&lt;h5 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;字符串驻留是一种仅保存一份相同且不可变字符串的方法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;基本原理：&lt;/p&gt;
+&lt;p&gt;系统维护intered字典，记录已被驻留的字符串对象。&lt;/p&gt;
+&lt;p&gt;当字符串对象a需要驻留时，现在interned检测是否存在，若存在则指向存在的字符串对象，a的引用计数减1；&lt;/p&gt;
+&lt;p&gt;若不存在，则记录a到interned中。&lt;/p&gt;
+&lt;/blockquote&gt;
     
     </summary>
     
