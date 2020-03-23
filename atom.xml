@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-03-22T06:10:23.043Z</updated>
+  <updated>2020-03-23T14:48:28.165Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>wtfpython day2</title>
+    <link href="http://yoursite.com/2020/03/23/wtfpython-day2/"/>
+    <id>http://yoursite.com/2020/03/23/wtfpython-day2/</id>
+    <published>2020-03-23T14:02:03.000Z</published>
+    <updated>2020-03-23T14:48:28.165Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;The-surprising-comma&quot;&gt;&lt;a href=&quot;#The-surprising-comma&quot; class=&quot;headerlink&quot; title=&quot;The surprising comma&quot;&gt;&lt;/a&gt;The surprising
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>wtfpython day1</title>
